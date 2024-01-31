@@ -1,10 +1,17 @@
-# app.py
+
+
+
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request  # Add this import
 from flask_migrate import Migrate
 from models import db, Hero, Power, HeroPower
 
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+migrate = Migrate(app, db)
+db.init_app(app)
 
 
 app = Flask(__name__)
@@ -17,16 +24,7 @@ db.init_app(app)
 
 
 
-# Sample data to initialize the database for testing
-with app.app_context():
-    db.create_all()
-    hero1 = Hero(name='Superman')
-    hero2 = Hero(name='Batman')
-    db.session.add_all([hero1, hero2])
-    power1 = Power(name='Flight', description='Ability to fly')
-    power2 = Power(name='Strength', description='Superhuman strength')
-    db.session.add_all([power1, power2])
-    db.session.commit()
+
 
 @app.route('/heroes', methods=['GET'])
 def get_heroes():
@@ -95,5 +93,4 @@ def create_hero_power():
     return jsonify({'message': 'HeroPower created successfully'}), 201
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
-
+    app.run(port=5000, debug=True)

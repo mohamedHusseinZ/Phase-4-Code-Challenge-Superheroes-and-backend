@@ -1,8 +1,6 @@
 from app import app, db, Hero, Power, HeroPower
 from random import choice
 
-# Assuming you have already defined your Flask app and models
-
 with app.app_context():
     # Seeding powers
     powers_data = [
@@ -17,21 +15,28 @@ with app.app_context():
 
     # Seeding heroes
     heroes_data = [
-        {"name": "Kamala Khan", "super_name": "Ms. Marvel"},
-        {"name": "Doreen Green", "super_name": "Squirrel Girl"},
-        # Add other heroes...
+        {"name": "Kamala Khan"},
+        {"name": "Doreen Green"},
+        {"name":  "zaki hussein"},
+        
     ]
-    heroes = [Hero(**hero_data) for hero_data in heroes_data]
+    heroes = [Hero(name=hero_data['name']) for hero_data in heroes_data]
     db.session.add_all(heroes)
     db.session.commit()
 
     # Adding powers to heroes
-    strengths = ["Strong", "Weak", "Average"]
+    strengths = ["Strong", "Weak", "Average"] 
     for hero in Hero.query.all():
         for _ in range(choice([1, 2, 3])):
             power = choice(Power.query.all())
             hero_power = HeroPower(hero=hero, power=power, strength=choice(strengths))
             db.session.add(hero_power)
+
+            print(f"Added HeroPower: Hero '{hero.name}' has power '{power.name}' with strength '{hero_power.strength}'")
+
     db.session.commit()
 
 print("🦸‍♀️ Done seeding!")
+
+
+

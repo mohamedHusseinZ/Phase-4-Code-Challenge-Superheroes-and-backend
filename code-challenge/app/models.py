@@ -1,4 +1,4 @@
-# models.py
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
 
@@ -57,7 +57,7 @@ class HeroPower(db.Model):
         return value
 
     def __repr__(self):
-        return f'<HeroPower hero_id={self.hero_id}, power_id={self.power_id}, strength={self.strength}'
+        return f'<HeroPower hero_id={self.hero_id}, power_id={self.power_id}, strength={self.strength}>'
 
 
 
