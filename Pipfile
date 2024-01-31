@@ -17,4 +17,3 @@ requests = "*"
 [requires]
 python_full_version = "3.10.12"
 
-\\wsl.localhost\Ubuntu\home\zaki\myapps\python-code-challenge-superheroes\code-challenge
